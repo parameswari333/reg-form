@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: gray;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    input[type="checkbox"] {
+      width: calc(100% - 12px);
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: gray;
+      color: rgb(225, 179, 187);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: gray;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: gray;
+      color: rgb(225, 179, 187);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Registration Form</h2>
+    <form id="registrationForm" onsubmit="hemanth(); return false;">
+      <label for="name">User Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your Name">
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="name@gmail.com">
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter your Password">
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" placeholder="Enter your dob">
+
+      <input type="checkbox" id="acceptTerms" name="acceptTerms">
+      <label for="acceptTerms">Accept Terms and Conditions</label>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <table id="myTable">
+      <caption><h3>Entries</h3></caption>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Date of Birth</th>
+          <th>Accept Terms</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      submitForm();
+    });
+
+    function submitForm() {
+      var userName = document.getElementById("name");
+      var userEmail = document.getElementById("email");
+      var userPassword = document.getElementById("password");
+      var userDOB = document.getElementById("dob");
+      var acceptTerms = document.getElementById("acceptTerms");
+
+      const currentYear = new Date().getFullYear();
+      var birthYear = new Date(userDOB.value).getFullYear();
+
+      if (currentYear - birthYear >= 18 && currentYear - birthYear <= 55) {
+        var table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+        var newRow = table.insertRow(table.rows.length);
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+        var cell5 = newRow.insertCell(4);
+        
+        cell1.innerHTML = userName.value;
+        cell2.innerHTML = userEmail.value;
+        cell3.innerHTML = userPassword.value;
+        cell4.innerHTML = userDOB.value;
+        cell5.innerHTML = acceptTerms.checked ? 'Yes' : 'No';
+
+        // Clear form fields after submission
+        userName.value = '';
+        userEmail.value = '';
+        userPassword.value = '';
+        userDOB.value = '';
+        acceptTerms.checked = false;
+      } else {
+        alert("Your age is exempted. Please provide a valid Date of Birth.");
+      }
+    }
+  </script>
+</body>
+</html>
